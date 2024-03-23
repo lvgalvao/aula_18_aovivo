@@ -12,7 +12,7 @@ default_args = {
 
 @dag(
     default_args=default_args,
-    schedule_interval='@hourly',
+    schedule_interval='* * * * *',
     start_date=days_ago(1),
     tags=['pokemon'],
     catchup=False  # Define catchup como False para evitar execuções retroativas
