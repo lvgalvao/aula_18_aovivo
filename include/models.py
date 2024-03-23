@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, DateTime
 from sqlalchemy.sql import func
-from db import Base
+from .db import Base
 
 class Pokemon(Base):
     __tablename__ = 'pokemons'

@@ -9,9 +9,9 @@ readme = "README.md"
 python = ">=3.11,<3.12"
 requests = "^2.31.0"
 pydantic = "^2.6.4"
-sqlalchemy = "^2.0.28"
 python-dotenv = "^1.0.1"
 psycopg2-binary = "^2.9.9"
+apache-airflow = "^2.8.3"
 
 
 [build-system]

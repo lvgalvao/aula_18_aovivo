@@ -1,7 +1,7 @@
 import requests
-from db import SessionLocal, engine, Base
-from models import Pokemon
-from schema import PokemonSchema
+from .db import SessionLocal, engine, Base
+from .models import Pokemon
+from .schema import PokemonSchema
 
 Base.metadata.create_all(bind=engine)
 

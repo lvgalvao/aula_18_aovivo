@@ -1,6 +1,6 @@
 from airflow.decorators import dag, task
 from airflow.utils.dates import days_ago
-from python.controller import fetch_pokemon_data
+from include.controller import fetch_pokemon_data, add_pokemon_to_db
 
 default_args = {
     'owner': 'airflow',
@@ -14,7 +14,8 @@ default_args = {
     default_args=default_args,
     schedule_interval='@hourly',
     start_date=days_ago(1),
-    tags=['pokemon']
+    tags=['pokemon'],
+    catchup=False  # Define catchup como False para evitar execuções retroativas
 )
 def etl_dag():
     @task
@@ -31,11 +32,13 @@ def etl_dag():
             raise ValueError(f"Não foi possível obter dados para o Pokémon com ID {pokemon_id}.")
 
     @task
-    def print_pokemon(pokemon_schema):
+    def add_pokemon_to_db(pokemon_schema):
         print(f"Dados do Pokémon: {pokemon_schema}")
 
     pokemon_id = define_pokemon()
     pokemon_data = fetch_pokemon(pokemon_id)
-    print_pokemon(pokemon_data)
+    add_pokemon_to_db(pokemon_data)
+
+    define_pokemon >> fetch_pokemon >> add_pokemon_to_db
 
 dag = etl_dag()
